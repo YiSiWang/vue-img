@@ -1,7 +1,7 @@
 {
   "name": "vue-img",
-  "version": "1.2.0",
-  "description": "vue plugin for eleme cdn.",
+  "version": "1.2.1",
+  "description": "hash2path wrapper for vue.js",
   "main": "dist/vue-img.min.js",
   "scripts": {
     "dev": "node rollup.config dev",
