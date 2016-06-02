@@ -1,3 +1,5 @@
+import toPath from './path.js';
+
 // get image size
 const getSize = (str) => {
   // no size limit
@@ -18,6 +20,9 @@ const getSize = (str) => {
   return size;
 };
 
-const getParam = (quality, format, size) => `?imageMogr/quality/${quality}/${format}` + getSize(size);
+const getSrc = ({prefix, hash, quality, size, canWebp}) => {
+  const format = canWebp ? 'format/webp/' : '';
+  return prefix + toPath(hash) + `?imageMogr/quality/${quality}/${format}` + getSize(size);
+};
 
-export default getParam;
+export default getSrc;

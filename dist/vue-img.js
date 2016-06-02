@@ -49,8 +49,15 @@
     return size;
   };
 
-  var getParam = function getParam(quality, format, size) {
-    return '?imageMogr/quality/' + quality + '/' + format + getSize(size);
+  var getSrc = function getSrc(_ref) {
+    var prefix = _ref.prefix;
+    var hash = _ref.hash;
+    var quality = _ref.quality;
+    var size = _ref.size;
+    var canWebp = _ref.canWebp;
+
+    var format = canWebp ? 'format/webp/' : '';
+    return prefix + toPath(hash) + ('?imageMogr/quality/' + quality + '/' + format) + getSize(size);
   };
 
   var directive = function directive(Vue, opt, type) {
@@ -81,8 +88,14 @@
 
         if (!hash) return;
 
-        var format = exports.canWebp ? 'format/webp/' : '';
-        var src = prefix + toPath(hash) + getParam(quality, format, this.arg);
+        var src = getSrc({
+          prefix: prefix,
+          hash: hash,
+          quality: quality,
+          canWebp: exports.canWebp,
+          size: this.arg
+        });
+
         var img = new Image();
 
         img.src = src;
@@ -106,6 +119,7 @@
 
   exports.cdn = cdn$1;
   exports.toPath = toPath;
+  exports.getSrc = getSrc;
   exports.install = install;
 
 }));

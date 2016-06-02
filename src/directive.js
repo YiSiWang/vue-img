@@ -1,7 +1,6 @@
 import cdn from './cdn.js';
 import { canWebp } from './webp.js';
-import toPath from './path.js';
-import getParam from './param.js';
+import getSrc from './src.js';
 
 const directive = (Vue, opt, type) => {
   // CDN's prefix
@@ -30,8 +29,14 @@ const directive = (Vue, opt, type) => {
     update(hash) {
       if (!hash) return;
 
-      const format = canWebp ? 'format/webp/' : '';
-      const src = prefix + toPath(hash) + getParam(quality, format, this.arg);
+      const src = getSrc({
+        prefix,
+        hash,
+        quality,
+        canWebp,
+        size: this.arg
+      });
+
       const img = new Image();
 
       img.src = src;

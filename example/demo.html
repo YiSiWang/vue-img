@@ -43,6 +43,16 @@
         setTimeout(() => {
           this.imgSrc = '1fa68b8d589078c3d44e3ae3d7dac9fejpeg';
           this.imgErr = 'abcdefgabcdefgabcdefg';
+
+          const src = VueImg.getSrc({
+            prefix: VueImg.cdn,
+            canWebp: VueImg.canWebp,
+            hash: '1fa68b8d589078c3d44e3ae3d7dac9fejpeg',
+            quality: 75,
+            size: '750*100'
+          });
+
+          console.log(src);
         }, 3000);
       }
     });
