@@ -22,7 +22,7 @@ npm install vue-img
 #### CDN
 
 ```HTML
-<script src="//github.elemecdn.com/banricho/vue-img/1.2.1/dist/vue-img.min.js"></script>
+<script src="//github.elemecdn.com/banricho/vue-img/1.2.3/dist/vue-img.min.js"></script>
 ```
 
 ### 配置插件
@@ -80,11 +80,10 @@ vue-img 在 1.2.1 版本中新增了 `getSrc` 方法，用于生成完整的图�
 
 ```JS
 const src = VueImg.getSrc({
-  canWebp: VueImg.canWebp,                       // [Boolean] 是否转为 webP
-  prefix: VueImg.cdn,                            // [String]  CDN 前缀
-  hash: '1fa68b8d589078c3d44e3ae3d7dac9fejpeg',  // [String]  图片 hash
-  size: '750*100',                               // [String]  尺寸参数
-  quality: 75,                                   // [Number]  图片质量
+  hash: '1fa68b8d589078c3d44e3ae3d7dac9fejpeg',  // [String]  图片 hash （必填）
+  prefix: '',                                    // [String]  CDN 前缀 （可选，默认当前 CDN）
+  size: '750*100',                               // [String]  尺寸参数 （可选，默认原尺寸）
+  quality: 75,                                   // [Number]  图片质量 （可选，默认 75）
 });
 ```
 
