@@ -49,24 +49,21 @@
     return size;
   };
 
-  var getSrc = function getSrc(_ref) {
-    var prefix = _ref.prefix;
-    var hash = _ref.hash;
-    var quality = _ref.quality;
-    var size = _ref.size;
-    var canWebp = _ref.canWebp;
-
-    var format = canWebp ? 'format/webp/' : '';
-    return prefix + toPath(hash) + ('?imageMogr/quality/' + quality + '/' + format) + getSize(size);
-  };
-
-  var directive = function directive(Vue, opt, type) {
+  // get image.src
+  var getSrc = function getSrc(opt) {
     // CDN's prefix
     var prefix = typeof opt.prefix === 'string' ? opt.prefix : cdn$1;
 
     // image quality
-    var quality = opt.quality <= 100 ? opt.quality : 75;
+    var quality = typeof opt.quality === 'number' ? opt.quality : 75;
 
+    // image format
+    var format = exports.canWebp ? 'format/webp/' : '';
+
+    return prefix + toPath(opt.hash) + ('?imageMogr/quality/' + quality + '/' + format) + getSize(opt.size);
+  };
+
+  var directive = function directive(Vue, opt, type) {
     // set img.src or element.style.backgroundImage
     var setAttr = function setAttr(el, src) {
       if (!el || !src) return;
@@ -89,10 +86,9 @@
         if (!hash) return;
 
         var src = getSrc({
-          prefix: prefix,
           hash: hash,
-          quality: quality,
-          canWebp: exports.canWebp,
+          prefix: opt.prefix,
+          quality: opt.quality,
           size: this.arg
         });
 

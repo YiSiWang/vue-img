@@ -1,14 +1,6 @@
-import cdn from './cdn.js';
-import { canWebp } from './webp.js';
 import getSrc from './src.js';
 
 const directive = (Vue, opt, type) => {
-  // CDN's prefix
-  const prefix = typeof opt.prefix === 'string' ? opt.prefix : cdn;
-
-  // image quality
-  const quality = opt.quality <= 100 ? opt.quality : 75;
-
   // set img.src or element.style.backgroundImage
   const setAttr = (el, src) => {
     if (!el || !src) return;
@@ -30,10 +22,9 @@ const directive = (Vue, opt, type) => {
       if (!hash) return;
 
       const src = getSrc({
-        prefix,
         hash,
-        quality,
-        canWebp,
+        prefix: opt.prefix,
+        quality: opt.quality,
         size: this.arg
       });
 

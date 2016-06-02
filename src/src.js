@@ -1,4 +1,6 @@
+import cdn from './cdn.js';
 import toPath from './path.js';
+import { canWebp } from './webp.js';
 
 // get image size
 const getSize = (str) => {
@@ -20,9 +22,18 @@ const getSize = (str) => {
   return size;
 };
 
-const getSrc = ({prefix, hash, quality, size, canWebp}) => {
+// get image.src
+const getSrc = (opt) => {
+  // CDN's prefix
+  const prefix = typeof opt.prefix === 'string' ? opt.prefix : cdn;
+
+  // image quality
+  const quality = typeof opt.quality === 'number' ? opt.quality : 75;
+
+  // image format
   const format = canWebp ? 'format/webp/' : '';
-  return prefix + toPath(hash) + `?imageMogr/quality/${quality}/${format}` + getSize(size);
+
+  return prefix + toPath(opt.hash) + `?imageMogr/quality/${quality}/${format}` + getSize(opt.size);
 };
 
 export default getSrc;
