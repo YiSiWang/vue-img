@@ -30,16 +30,16 @@ const directive = (Vue, opt, type) => {
 
       const img = new Image();
 
-      img.src = src;
-
       img.onload = () => {
         setAttr(this.el, src);
       };
 
-      if (!opt.error) return;
       img.onerror = () => {
+        if (!opt.error) return;
         setAttr(this.el, opt.error);
       };
+
+      img.src = src;
     }
   });
 };
