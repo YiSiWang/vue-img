@@ -94,16 +94,16 @@
 
         var img = new Image();
 
-        img.src = src;
-
         img.onload = function () {
           setAttr(_this.el, src);
         };
 
-        if (!opt.error) return;
         img.onerror = function () {
+          if (!opt.error) return;
           setAttr(_this.el, opt.error);
         };
+
+        img.src = src;
       }
     });
   };
