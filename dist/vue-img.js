@@ -9,9 +9,10 @@
 
   // in the test environment
   var bases = ['alpha', 'beta'];
-  bases.forEach(function (base) {
+
+  bases.some(function (base) {
     if (window.document.domain.match(base + '.ele')) {
-      cdn = '//fuss.' + base + '.elenet.me';
+      return cdn = '//fuss.' + base + '.elenet.me';
     }
   });
 
@@ -75,16 +76,16 @@
       }
     };
 
+    // register vue directive
     Vue.directive(type, {
       bind: function bind() {
         if (this.modifiers.now) return;
         setAttr(this.el, opt.loading);
       },
       update: function update(hash) {
-        var _this = this;
-
         if (!hash) return;
 
+        var img = new Image();
         var src = getSrc({
           hash: hash,
           prefix: opt.prefix,
@@ -92,24 +93,19 @@
           size: this.arg
         });
 
-        var img = new Image();
+        img.onload = setAttr.bind(null, this.el, src);
 
-        img.onload = function () {
-          setAttr(_this.el, src);
-        };
-
-        img.onerror = function () {
-          if (!opt.error) return;
-          setAttr(_this.el, opt.error);
-        };
+        if (opt.error) {
+          img.onerror = setAttr.bind(null, this.el, opt.error);
+        }
 
         img.src = src;
       }
     });
   };
 
-  var install = function install(Vue) {
-    var opt = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+  var install = function install(Vue, options) {
+    var opt = options || Object.create(null);
 
     directive(Vue, opt, 'img');
     directive(Vue, opt, 'bgi');

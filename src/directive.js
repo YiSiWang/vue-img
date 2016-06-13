@@ -12,6 +12,7 @@ const directive = (Vue, opt, type) => {
     }
   };
 
+  // register vue directive
   Vue.directive(type, {
     bind() {
       if (this.modifiers.now) return;
@@ -21,6 +22,7 @@ const directive = (Vue, opt, type) => {
     update(hash) {
       if (!hash) return;
 
+      const img = new Image();
       const src = getSrc({
         hash,
         prefix: opt.prefix,
@@ -28,16 +30,11 @@ const directive = (Vue, opt, type) => {
         size: this.arg
       });
 
-      const img = new Image();
+      img.onload = setAttr.bind(null, this.el, src);
 
-      img.onload = () => {
-        setAttr(this.el, src);
-      };
-
-      img.onerror = () => {
-        if (!opt.error) return;
-        setAttr(this.el, opt.error);
-      };
+      if (opt.error) {
+        img.onerror = setAttr.bind(null, this.el, opt.error);
+      }
 
       img.src = src;
     }

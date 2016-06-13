@@ -3,9 +3,10 @@ let cdn = '//fuss10.elemecdn.com';
 
 // in the test environment
 const bases = ['alpha', 'beta'];
-bases.forEach(base => {
+
+bases.some(base => {
   if (window.document.domain.match(base + '.ele')) {
-    cdn = `//fuss.${base}.elenet.me`;
+    return cdn = `//fuss.${base}.elenet.me`;
   }
 });
 
