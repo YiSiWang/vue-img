@@ -6,9 +6,9 @@ const directive = (Vue, opt, type) => {
     if (!el || !src) return;
 
     if (type === 'img') {
-      el['src'] = src;
+      el.src = src;
     } else {
-      el['style']['backgroundImage'] = `url(${src})`;
+      el.style.backgroundImage = `url(${src})`;
     }
   };
 

@@ -26,6 +26,7 @@
   };
   img.src = 'data:image/webp;base64,UklGRkoAAABXRUJQVlA4WAoAAAAQAAAAAAAAAAAAQUxQSAsAAAABBxAREYiI/gcAAABWUDggGAAAADABAJ0BKgEAAQABABwlpAADcAD+/gbQAA==';
 
+  // hash to path
   var toPath = function toPath(hash) {
     return (hash + '').replace(/^(\w)(\w\w)(\w{29}(\w*))$/, '/$1/$2/$3.$4');
   };
@@ -70,9 +71,9 @@
       if (!el || !src) return;
 
       if (type === 'img') {
-        el['src'] = src;
+        el.src = src;
       } else {
-        el['style']['backgroundImage'] = 'url(' + src + ')';
+        el.style.backgroundImage = 'url(' + src + ')';
       }
     };
 

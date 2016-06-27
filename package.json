@@ -1,6 +1,6 @@
 {
   "name": "vue-img",
-  "version": "1.2.5",
+  "version": "1.2.6",
   "description": "hash2path wrapper for vue.js",
   "main": "dist/vue-img.min.js",
   "scripts": {

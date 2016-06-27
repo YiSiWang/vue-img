@@ -22,7 +22,7 @@ npm install vue-img
 #### CDN
 
 ```HTML
-<script src="//github.elemecdn.com/banricho/vue-img/1.2.5/dist/vue-img.min.js"></script>
+<script src="//github.elemecdn.com/banricho/vue-img/1.2.6/dist/vue-img.min.js"></script>
 ```
 
 ### 配置插件
